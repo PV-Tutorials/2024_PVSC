@@ -26,10 +26,13 @@ We hope that at the end of this tutorial you will
 -Have a clearer understanding of what pvlib does, and what other open source tools are there for you to use.
 
 ## Appendix Tutorials:
-* **Tutorial 4**: Use POA irradiance and module temperature to model output power
-  from a single module
-* **Tutorial 5**: Combine modules to form strings, calculate inverter efficiency
-  and total array output 
+* **Tutorial A**: Model output power from a single module
+* **Tutorial B**: Combine modules to form strings, calculate inverter efficiency
+  and total array output
+* **Tutorial C**: Single diode model 
+* **Tutorial D**: Open-source tool: pvfree
+* **Tutorial E**: Using the powerful due-diligence software SAM via pySAM
+
 * **Tutorials Appendices**: More tutorials on a variety of fun topics
 
 ## Tutorial Setup
