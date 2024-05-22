@@ -8,12 +8,16 @@ The tutorial is divided into 3 sections:
 This section will introduce the tutorial facilitators, the Jupyter and Google-Collab platform, and python. Then we will proceed to a working example.
 The working example will have you use an APIs to download weather data, and use this to model sun position and hten irradiance at surface of a module (POA). 
 We will wrap up with modeling module's temperature.
-This is covered by tutorials 0 - 3.
+This is covered by tutorials 0 - 2.
+* **Tutorial 0**: Overview
+* **Tutorial 1**: TMY Weather Data
+* **Tutorial 2**: POA Irradiance and Module Temperature
 
 ## Section 2: 1 hr
 This will be a problem based learning, where you will calculate a pv module power output by taking code from section 1, and adding new code from the documentation provided.
 This section will be in small teams created during the session based on skill level. Facilitators will roam around supporting.
 This is covered by tutorial PBL 1.
+* **Tutorial PBL - 1**: Model power output of a module
 
 ## Section 3: 0.5 hrs
 We will go over other open-source tools, and examples available in this tutorial for you to peruse afterwards.
