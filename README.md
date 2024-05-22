@@ -39,6 +39,13 @@ We hope that at the end of this tutorial you will
 
 * **Tutorials Appendices**: More tutorials on a variety of fun topics
 
+## What you will need for the tutorial during the live session (June 9th) 
+
+During this tutorials, we hope you get to play with the code. A laptop is ideal, but we have had students doing them through their phones or tablets, or joining in with a peer. 
+You will NOT have to install anything on your computer if you don't want, as we will be running the tutorial in Google Collab. However, you WILL need to be logged-in to a google account to run the tutorials online.
+Alternatively, you can install on your computer (instructions below).
+
+
 ## Tutorial Setup
 These tutorials are made with [Jupyter](https://jupyter.org), which is a
 browser based interactive Python notebook that allows you to run the tutorials
