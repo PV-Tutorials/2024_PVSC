@@ -9,15 +9,15 @@ This section will introduce the tutorial facilitators, the Jupyter and Google-Co
 The working example will have you use an APIs to download weather data, and use this to model sun position and hten irradiance at surface of a module (POA). 
 We will wrap up with modeling module's temperature.
 This is covered by tutorials 0 - 2.
-* **Tutorial 0**: Overview
-* **Tutorial 1**: TMY Weather Data
-* **Tutorial 2**: POA Irradiance and Module Temperature
+* [**Tutorial 0**: Overview](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%200%20-%20Overview.ipynb)
+* [**Tutorial 1**: TMY Weather Data](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%201%20-%20TMY%20Weather%20Data.ipynb)
+* [**Tutorial 2**: POA Irradiance and Module Temperature](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.ipynb)
 
 ## Section 2: 1 hr
 This will be a problem based learning, where you will calculate a pv module power output by taking code from section 1, and adding new code from the documentation provided.
 This section will be in small teams created during the session based on skill level. Facilitators will roam around supporting.
 This is covered by tutorial PBL 1.
-* **Tutorial PBL - 1**: Model power output of a module
+* [**Tutorial PBL - 1**: Model power output of a module](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/PBL_Case%201.ipynb)
 
 ## Section 3: 0.5 hrs
 We will go over other open-source tools, and examples available in this tutorial for you to peruse afterwards.
@@ -30,12 +30,12 @@ We hope that at the end of this tutorial you will
 -Have a clearer understanding of what pvlib does, and what other open source tools are there for you to use.
 
 ## Appendix Tutorials:
-* **Tutorial A**: Model output power from a single module
-* **Tutorial B**: Combine modules to form strings, calculate inverter efficiency
-  and total array output
-* **Tutorial C**: Single diode model 
-* **Tutorial D**: Open-source tool: pvfree
-* **Tutorial E**: Using the powerful due-diligence software SAM via pySAM
+* [**Tutorial A**: Model output power from a single module](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20A%20-%20Model%20a%20Module's%20Performance.ipynb)
+* [**Tutorial B**: Combine modules to form strings, calculate inverter efficiency
+  and total array output](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20B%20-%20Array%20Power.ipynb)
+* [**Tutorial C**: Single diode model ](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20C%20-%20Single%20Diode%20Model.ipynb)
+* [**Tutorial D**: Open-source tool: pvfree](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20D%20-%20pvfree.ipynb)
+* [**Tutorial E**: Using the powerful due-diligence software SAM via pySAM](https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial%20E%20-%20PySAM%20Financial%20Model.ipynb)
 
 * **Tutorials Appendices**: More tutorials on a variety of fun topics
 
