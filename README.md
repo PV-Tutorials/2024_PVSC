@@ -82,7 +82,7 @@ The tutorials will remain available on GitHub, and you can run
 the tutorial anytime in [Binder](https://mybinder.org) by clicking the
 following link:
 
-[![Binder]([https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main))
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main)
 
 ### Locally
 
