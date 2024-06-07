@@ -69,20 +69,13 @@ the tutorial requirements.
 
     !pip install -r https://raw.githubusercontent.com/PVSC-Tutorials/2024_PVSC/main/requirements.txt
 
-### Jupyter Books
-
-The full tutorial is hosted as a [Jupyter book](https://jupyterbook.org/intro.html).
-This book has navigation, search, and can be used to launch each book in Colaboratory.
-
-[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](<https://PV-Tutorials.github.io/2024_PVSC/index.html>)
-
 ### My Binder
 
 The tutorials will remain available on GitHub, and you can run
 the tutorial anytime in [Binder](https://mybinder.org) by clicking the
 following link:
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main)
+[![Binder]([https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PV-Tutorials/2024_PVSC/main))
 
 ### Locally
 
