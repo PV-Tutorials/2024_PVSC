@@ -1,0 +1,1581 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Tutorial 1 - Weather Data: Accesing it, understanding it, visualizing it! &#8212; 2024 PVSC Python Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="_static/documentation_options.js?v=c73c0f3e"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tutorial 1 - TMY Weather Data';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial 2 - POA Irradiance &amp; Module Temperature" href="Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.html" />
+    <link rel="prev" title="Welcome to Python, Jupyter, and Google Collab" href="Tutorial%200%20-%20Overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="Tutorial%200%20-%20Overview.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/tutorial_banner.PNG" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/tutorial_banner.PNG" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Tutorial%200%20-%20Overview.html">
+                    Welcome to Python, Jupyter, and Google Collab
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tutorial 1 - Weather Data: Accesing it, understanding it, visualizing it!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.html">Tutorial 2 - POA Irradiance &amp; Module Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PBL_Case%201.html">2024 PVSC - Problem Based Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20A%20-%20Model%20a%20Module%27s%20Performance.html">Tutorial A - PV Module Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20B%20-%20Array%20Power.html">Tutorial B - Array Power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20C%20-%20Single%20Diode%20Model.html">Tutorial C - Single Diode Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%20D%20-%20pvfree.html">Tutorial D - pvfree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PBL_Case%202.html">2024 PVSC - Problem Based Learning 2</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PV-Tutorials/2024_PVSC/blob/main/Tutorial 1 - TMY Weather Data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PV-Tutorials/2024_PVSC" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PV-Tutorials/2024_PVSC/issues/new?title=Issue%20on%20page%20%2FTutorial 1 - TMY Weather Data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tutorial 1 - TMY Weather Data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tutorial 1 - Weather Data: Accesing it, understanding it, visualizing it!</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pv-concepts">PV Concepts:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-concepts">Python Concepts:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-data-pv">Weather Data &amp; PV</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-meteorological-year">Typical Meteorological Year</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irradiance">Irradiance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind">Wind</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#air-temperature">Air temperature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-get-free-solar-irradiance-data">Where to get <em>Free</em> Solar Irradiance Data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-else-can-you-get-historical-irradiance-data">Where else can you get historical irradiance data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrel-api-key">NREL API Key</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-programming-interface-api">Application Programming Interface (API)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-to-coding">Now to Coding:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step-for-google-collab">0. First Step for Google Collab:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">1. Import Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fetching-tmys-from-the-nsrdb">2. Fetching TMYs from the NSRDB</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-your-weatherfile">4. Explore your weatherfile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downselect-columns">5. Downselect columns</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-time-series-data-with-pandas-and-matplotlib">Plotting time series data with pandas and matplotlib</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Irradiance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature">Temperature</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed">Wind speed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-hourly-data-to-monthly-summaries">3. Aggregating hourly data to monthly summaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exercise</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <p><img alt="tutorialpromo" src="_images/tutorial_banner.PNG" /></p>
+<section class="tex2jax_ignore mathjax_ignore" id="tutorial-1-weather-data-accesing-it-understanding-it-visualizing-it">
+<h1>Tutorial 1 - Weather Data: Accesing it, understanding it, visualizing it!<a class="headerlink" href="#tutorial-1-weather-data-accesing-it-understanding-it-visualizing-it" title="Link to this heading">#</a></h1>
+<p>This notebook explores a standard type of weather data, the typical meteorological year (TMY), and how to summarize it with Python and <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>.</p>
+<p><img alt="Overview" src="_images/tutorial_1_overview.PNG" /></p>
+<section id="steps">
+<h2>Steps:<a class="headerlink" href="#steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#Weather-Data-&amp;-PV"><span class="xref myst">Weather data in PV performance models</span></a></p></li>
+<li><p>Looking at a sample weather data file</p></li>
+<li><p>Where to get weather data from?</p></li>
+<li><p>Weather data to API</p></li>
+</ul>
+</section>
+<section id="pv-concepts">
+<h2>PV Concepts:<a class="headerlink" href="#pv-concepts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>TMY</p></li>
+<li><p>GHI, DNI, DHI</p></li>
+<li><p>DryBulb, Wspd</p></li>
+<li><p>Irradiance vs. Insolation</p></li>
+</ul>
+</section>
+<section id="python-concepts">
+<h2>Python Concepts:<a class="headerlink" href="#python-concepts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Exploring a Pandas dataframe (<code class="docutils literal notranslate"><span class="pre">df</span></code>): <code class="docutils literal notranslate"><span class="pre">len()</span></code>, <code class="docutils literal notranslate"><span class="pre">df.head()</span></code>, <code class="docutils literal notranslate"><span class="pre">df.keys()</span></code></p></li>
+<li><p><a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/api.html#io-tools">pvlib input-output tools</a></p></li>
+<li><p>Ploting a Pandas dataframe (<code class="docutils literal notranslate"><span class="pre">df</span></code>): <code class="docutils literal notranslate"><span class="pre">df.plot()</span></code></p></li>
+<li><p>Aggregating data in a dataframe (<code class="docutils literal notranslate"><span class="pre">df</span></code>): <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html"><code class="docutils literal notranslate"><span class="pre">df.resample(freq).sum()</span></code></a></p></li>
+<li><p>Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects"><code class="docutils literal notranslate"><span class="pre">DateOffsets</span></code></a> - shortcuts to set the frequency when resampling</p></li>
+<li><p>Getting NREL irradiance data from the web based API using pvlib</p></li>
+</ul>
+</section>
+<section id="weather-data-pv">
+<h2>Weather Data &amp; PV<a class="headerlink" href="#weather-data-pv" title="Link to this heading">#</a></h2>
+<p>Weather and irradiance data are used as input to PV performance models.</p>
+<p><img alt="SRRL" src="_images/tutorial_1_SRRL.PNG" /></p>
+<p>These data are directly measured, derived from measured data, or simulated using a stochastic model.</p>
+<section id="typical-meteorological-year">
+<h3>Typical Meteorological Year<a class="headerlink" href="#typical-meteorological-year" title="Link to this heading">#</a></h3>
+<p>TMY datasets are intended to represent the weather for a typical year at a given location.</p>
+<p>TMY datasets provide hourly <strong>solar irradiance</strong>, <strong>air temperature</strong>, <strong>wind speed</strong>, and other weather measurements for a hypothetical year that represents more or less a “median year” for solar resource.</p>
+<p><img alt="TMY3 screenshot" src="_images/tutorial_1_tmy3_example.PNG" /></p>
+<p>TMY datasets are created by selecting individual months out of an extended period of weather measurememts (say, 20 years of data) to construct a single year’s worth of data. There are several methods for selecting which months to include, but the general idea is to calculate monthly summary statistics and take the month that lies in the middle of the distribution.  For example, no two Januaries will be exactly the same, so summing the total solar irradiance for each January will give a <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normal distribution</a>, and the month that falls closest to the <a class="reference external" href="https://en.wikipedia.org/wiki/Median">median</a> is chosen as the representative month. The same process is followed for February, March, and so on, and all twelve representative months are stitched together into a year-long dataset.</p>
+<p>The oldest TMYs were calculated using data from the nearest weather station (airports and such). Today, it’s common to use TMYs calculated using simulated weather data from satellite imagery because of the improved spatial resolution.</p>
+<p>To get a better feel for TMY data, we’ll first explore an example TMY dataset that is bundled with pvlib.</p>
+</section>
+<section id="irradiance">
+<h3>Irradiance<a class="headerlink" href="#irradiance" title="Link to this heading">#</a></h3>
+<p>Irradiance is an instantaneous measurement of solar power over some area.  For practical purposes of measurement and interpretation, irradiance is expressed and separated into different components.</p>
+<p><img alt="overview irradiance" src="_images/tutorial_1_DNIDHIGHI.PNG" /></p>
+<p>The units of irradiance are watts per square meter.</p>
+<p>GHI, DHI, and DNI are the three “basic” ways of measuring irradiance, although each of them is measured in units of power per area (watts per square meter):</p>
+<ul class="simple">
+<li><p>GHI: Global Horizontal Irradiance; the total sunlight intensity falling on a horizontal plane</p></li>
+<li><p>DHI: Diffuse Horizontal Irradiance; the subset of sunlight falling on a horizontal plane that isn’t coming directly from the sun (e.g., the light that makes the sky blue)</p></li>
+<li><p>DNI: Direct Normal Irradiance; the subset of sunlight coming directly from the sun</p></li>
+</ul>
+<p><img alt="Overview" src="_images/t1_GHI.PNG" /></p>
+<p><img alt="Overview" src="_images/t1_DHI.PNG" /></p>
+<p><img alt="Overview" src="_images/t1_DNI.PNG" /></p>
+</section>
+<section id="wind">
+<h3>Wind<a class="headerlink" href="#wind" title="Link to this heading">#</a></h3>
+<p>Wind speed is measured with an anemometer.  The most common type is a the cup-type anemometer, shown on the right side of the picture below.  The number of rotations per time interval is used to calculate the wind speed.  The vane on the left is used to measure the direction of the wind.  Wind direction is reported as the direction from which the wind is blowing.</p>
+<p><img src="https://pvpmc.sandia.gov/app/uploads/sites/243/2022/11/anemometer.jpg"></img></p>
+</section>
+<section id="air-temperature">
+<h3>Air temperature<a class="headerlink" href="#air-temperature" title="Link to this heading">#</a></h3>
+<p>Also known as dry-bulb temperature, is the temperature of the ambient air when the measurement device is shielded from radiation and moisture. The most common method of air temperature measurement uses a resistive temperature device (RTD) or thermocouple within a radiation shield. The shield blocks sunlight from reaching the sensor (avoiding radiative heating), yet allows natural air flow around the sensor. More accurate temperature measurement devices utilize a shield which forces air across the sensor.</p>
+<p>Air temperature is typically measured on the Celsius scale.</p>
+<p>Air temperature plays a large role in PV system performance as PV modules and inverters are cooled convectively by the surrounding air.</p>
+<p><img src="https://www.sandia.gov/app/uploads/sites/243/2022/11/AmbTemp-768x1024-1.jpg" width="400" height="400"> </img></p>
+</section>
+</section>
+<section id="where-to-get-free-solar-irradiance-data">
+<h2>Where to get <em>Free</em> Solar Irradiance Data?<a class="headerlink" href="#where-to-get-free-solar-irradiance-data" title="Link to this heading">#</a></h2>
+<p>There are many different sources of solar irradiance data. For your projects, these are some of the most common:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://maps.nrel.gov/nsrdb-viewer/">NSRDB</a> - National Solar Radiation Database. You can access data through the website for many locations accross the world, or you can use their <a class="reference external" href="https://developer.nrel.gov/docs/solar/nsrdb/">web API</a> to download data programmatically. An “API” is an <a class="reference external" href="https://en.wikipedia.org/wiki/API">“application programming interface”</a>, and a “web API” is a programming interface that allows you to write code to interact with web services like the NSRDB.</p></li>
+<li><p><a class="reference external" href="https://www.energy.gov/eere/buildings/downloads/energyplus-0">EPW</a> - Energy Plus Weather data is available for many locations accross the world. It’s in its own format file (‘EPW’) so you can’t open it easily in a spreadsheet program like Excel, but you can use <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.iotools.read_epw.html"><code class="docutils literal notranslate"><span class="pre">pvlib.iotools.read_epw()</span></code></a> to get it into a dataframe and use it.</p></li>
+<li><p><a class="reference external" href="https://re.jrc.ec.europa.eu/pvg_tools/en/">PVGIS</a> - Free global weather data provided by the European Union and derived from many govermental agencies including the NSRDB. PVGIS also provides a web API. You can get PVGIS TMY data using <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.iotools.get_pvgis_tmy.html"><code class="docutils literal notranslate"><span class="pre">pvlib.iotools.get_pvgis_tmy()</span></code></a>.</p></li>
+<li><p>Perhaps another useful link: <a class="reference external" href="https://sam.nrel.gov/weather-data.html">https://sam.nrel.gov/weather-data.html</a></p></li>
+</ul>
+</section>
+<section id="where-else-can-you-get-historical-irradiance-data">
+<h2>Where else can you get historical irradiance data?<a class="headerlink" href="#where-else-can-you-get-historical-irradiance-data" title="Link to this heading">#</a></h2>
+<p>There are several commercial providers of solar irradiance data. Data is available at different spatial and time resolutions. Each provider offers data under subscription that will provide access to irradiance (and other weather variables) via API to leverage in python.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.solaranywhere.com/">SolarAnywhere</a></p></li>
+<li><p><a class="reference external" href="https://solargis.com/">SolarGIS</a></p></li>
+<li><p><a class="reference external" href="https://www.vaisala.com/en">Vaisala</a></p></li>
+<li><p><a class="reference external" href="https://meteonorm.com/en/">Meteonorm</a></p></li>
+<li><p><a class="reference external" href="https://src.dnv.com/">DNV Solar Resource Compass</a></p></li>
+</ul>
+<p><img alt="NSRDB Example" src="_images/tutorial_1_NSRDB_example.PNG" /></p>
+</section>
+<section id="nrel-api-key">
+<h2>NREL API Key<a class="headerlink" href="#nrel-api-key" title="Link to this heading">#</a></h2>
+<p>At the <a class="reference external" href="https://developer.nrel.gov/">NREL Developer Network</a>, there are <a class="reference external" href="https://en.wikipedia.org/wiki/API">APIs</a> to a lot of valuable <a class="reference external" href="https://developer.nrel.gov/docs/solar/">solar resources</a> like <a class="reference external" href="https://developer.nrel.gov/docs/solar/nsrdb/">weather data from the NSRDB</a>, <a class="reference external" href="https://developer.nrel.gov/docs/solar/pvdaq-v3/">operational data from PVDAQ</a>, or indicative calculations using <a class="reference external" href="https://developer.nrel.gov/docs/solar/pvwatts/">PVWatts</a>. In order to use these resources from NREL, you need to <a class="reference external" href="https://developer.nrel.gov/signup/">register for a free API key</a>. You can test out the APIs using the <code class="docutils literal notranslate"><span class="pre">DEMO_KEY</span></code> but it has limited bandwidth compared to the <a class="reference external" href="https://developer.nrel.gov/docs/rate-limits/">usage limit for registered users</a>. NREL has some <a class="reference external" href="https://developer.nrel.gov/docs/api-key/">API usage instructions</a>, but pvlib has a few builtin functions, like <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.iotools.get_psm3.html"><code class="docutils literal notranslate"><span class="pre">pvlib.iotools.get_psm3()</span></code></a>, that wrap the NREL API, and call them for you to make it much easier to use.</p>
+<section id="application-programming-interface-api">
+<h3>Application Programming Interface (API)<a class="headerlink" href="#application-programming-interface-api" title="Link to this heading">#</a></h3>
+<p>What exactly is an API? Nowadays, the phrase is used interchangeably with a “web API” but in general an API is just a recipe for how to interface with a application programmatically, <em>IE</em>: in code. An API could be as simple as a function signature or its published documentation, <em>EG</em>: the API for the <code class="docutils literal notranslate"><span class="pre">solarposition</span></code> function is you give it an ISO8601 formatted date with a timezone, the latitude, longitude, and elevation as numbers, and it returns the zenith and azimuth as numbers.</p>
+<p>A web API is the same, except the application is a web service, that you access at its URL using web methods. We won’t go into too much more detail here, but the most common web method is <code class="docutils literal notranslate"><span class="pre">GET</span></code> which is pretty self explanatory. Look over the <a class="reference external" href="https://developer.nrel.gov/docs/api-key/">NREL web usage instructions</a> for some examples, but interacting with a web API can be as easy as entering a URL into a browser. Try the URL below to <em>get</em> the PVWatts energy output for a fixed tilt site in <a class="reference external" href="https://goo.gl/maps/awkEcNGzSur9Has18">Broomfield, CO</a>.</p>
+<p><a class="reference external" href="https://developer.nrel.gov/api/pvwatts/v6.json?api_key=DEMO_KEY&amp;amp;lat=40&amp;amp;lon=-105&amp;amp;system_capacity=4&amp;amp;azimuth=180&amp;amp;tilt=40&amp;amp;array_type=1&amp;amp;module_type=1&amp;amp;losses=10">https://developer.nrel.gov/api/pvwatts/v6.json?api_key=DEMO_KEY&amp;lat=40&amp;lon=-105&amp;system_capacity=4&amp;azimuth=180&amp;tilt=40&amp;array_type=1&amp;module_type=1&amp;losses=10</a></p>
+<p>In addition to just using your browser, you can also access web APIs programmatically. The most popular Python package to interact with web APIs is <a class="reference external" href="https://docs.python-requests.org/en/master/">requests</a>. There’s also free open source command-line tools like <a class="reference external" href="https://curl.se/">cURL</a> and <a class="reference external" href="https://httpie.io/">HTTPie</a>, and a popular nagware/freemium GUI application called <a class="reference external" href="https://www.postman.com/">Postman</a>.</p>
+</section>
+</section>
+<section id="now-to-coding">
+<h2>Now to Coding:<a class="headerlink" href="#now-to-coding" title="Link to this heading">#</a></h2>
+<section id="first-step-for-google-collab">
+<h3>0. First Step for Google Collab:<a class="headerlink" href="#first-step-for-google-collab" title="Link to this heading">#</a></h3>
+<p>If running on google colab, uncomment (remove the # sign) from the next cell and execute it to install the dependencies and prevent “ModuleNotFoundError” in later cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install -r https://raw.githubusercontent.com/PV-Tutorials/2024_PVSC/main/requirements.txt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-libraries">
+<h3>1. Import Libraries<a class="headerlink" href="#import-libraries" title="Link to this heading">#</a></h3>
+<p>In Python, some functions are builtin like <code class="docutils literal notranslate"><span class="pre">print()</span></code> but others must be imported before they can be used. For this notebook we’re going to import three packages:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/">pvlib</a> - library for simulating performance of photovoltaic energy systems.</p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a> - analysis tool for timeseries and tabular data</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/">matplotlib</a> - data visualization for Python</p></li>
+</ul>
+<p>Some Python modules are part of the <a class="reference external" href="https://docs.python.org/3/library/index.html">standard library</a>, but are not imported with builtins.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>  <span class="c1"># for getting environment variables</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>  <span class="c1"># for finding the example dataset</span>
+<span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  <span class="c1"># for data wrangling</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># for visualization</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Query which version you are using of pvlib:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pvlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.10.4.dev9+ge92ee94
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fetching-tmys-from-the-nsrdb">
+<h3>2. Fetching TMYs from the NSRDB<a class="headerlink" href="#fetching-tmys-from-the-nsrdb" title="Link to this heading">#</a></h3>
+<p>The NSRDB, one of many sources of weather data intended for PV modeling, is free and easy to access using pvlib. As an example, we’ll fetch a TMY dataset for San Juan, Puerto Rico at coordinates <a class="reference external" href="https://goo.gl/maps/ZuYuKFxSpJ1z9HXX8">(18.4671, -66.1185)</a>. We use <a class="reference external" href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.iotools.get_psm3.html"><code class="docutils literal notranslate"><span class="pre">pvlib.iotools.get_psm3()</span></code></a> which returns a Python dictionary of metadata and a Pandas dataframe of the timeseries weather data.</p>
+<p><strong>Please pause now to visit <a class="reference external" href="https://developer.nrel.gov/signup/">https://developer.nrel.gov/signup/</a> and get an API key.</strong></p>
+<p><strong>If you have an NREL API key please enter it in the next cell.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">NREL_API_KEY</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># &lt;-- please set your NREL API key here</span>
+
+<span class="c1"># note you must use &quot;quotes&quot; around your key, for example:</span>
+<span class="c1"># NREL_API_KEY = &#39;DEMO_KEY&#39;  # single or double both work fine</span>
+
+<span class="c1"># during the live tutorial, we&#39;ve stored a dedicated key on our server</span>
+<span class="k">if</span> <span class="n">NREL_API_KEY</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">NREL_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;NREL_API_KEY&#39;</span><span class="p">]</span>  <span class="c1"># get dedicated key for tutorial from servier</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">NREL_API_KEY</span> <span class="o">=</span> <span class="s1">&#39;DEMO_KEY&#39;</span>  <span class="c1"># OK for this demo, but better to get your own key</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">iotools</span><span class="o">.</span><span class="n">get_psm3</span><span class="p">(</span>
+    <span class="n">latitude</span><span class="o">=</span><span class="mf">18.4671</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=-</span><span class="mf">66.1185</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">NREL_API_KEY</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;mark.mikofski@dnv.com&#39;</span><span class="p">,</span>  <span class="c1"># &lt;-- any email works here fine</span>
+    <span class="n">names</span><span class="o">=</span><span class="s1">&#39;tmy&#39;</span><span class="p">)</span>
+<span class="n">metadata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\sayala\Documents\GitHub\pvlib-python\pvlib\iotools\psm3.py:360: pvlibDeprecationWarning: PSM3 variable names will be renamed to pvlib conventions by default starting in pvlib 0.11.0. Specify map_variables=True to enable that behavior now, or specify map_variables=False to hide this warning.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Source&#39;: &#39;NSRDB&#39;,
+ &#39;Location ID&#39;: &#39;1493571&#39;,
+ &#39;City&#39;: &#39;-&#39;,
+ &#39;State&#39;: &#39;-&#39;,
+ &#39;Country&#39;: &#39;-&#39;,
+ &#39;Latitude&#39;: 18.45,
+ &#39;Longitude&#39;: -66.1,
+ &#39;Time Zone&#39;: -4,
+ &#39;Elevation&#39;: 6,
+ &#39;Local Time Zone&#39;: -4,
+ &#39;Dew Point Units&#39;: &#39;c&#39;,
+ &#39;DHI Units&#39;: &#39;w/m2&#39;,
+ &#39;DNI Units&#39;: &#39;w/m2&#39;,
+ &#39;GHI Units&#39;: &#39;w/m2&#39;,
+ &#39;Temperature Units&#39;: &#39;c&#39;,
+ &#39;Pressure Units&#39;: &#39;mbar&#39;,
+ &#39;Wind Direction Units&#39;: &#39;Degrees&#39;,
+ &#39;Wind Speed Units&#39;: &#39;m/s&#39;,
+ &#39;Surface Albedo Units&#39;: &#39;N/A&#39;,
+ &#39;Version&#39;: &#39;3.2.0&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>What if we want a specific year, can NSRDB API provide it?
+Identify the answer with the cell below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">pvlib</span><span class="o">.</span><span class="n">iotools</span><span class="o">.</span><span class="n">get_psm3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function get_psm3 in module pvlib.iotools.psm3:
+
+get_psm3(latitude, longitude, api_key, email, names=&#39;tmy&#39;, interval=60, attributes=(&#39;air_temperature&#39;, &#39;dew_point&#39;, &#39;dhi&#39;, &#39;dni&#39;, &#39;ghi&#39;, &#39;surface_albedo&#39;, &#39;surface_pressure&#39;, &#39;wind_direction&#39;, &#39;wind_speed&#39;), leap_day=None, full_name=&#39;pvlib python&#39;, affiliation=&#39;pvlib python&#39;, map_variables=None, url=None, timeout=30)
+    Retrieve NSRDB PSM3 timeseries weather data from the PSM3 API. The NSRDB
+    is described in [1]_ and the PSM3 API is described in [2]_, [3]_, and [4]_.
+    
+    .. versionchanged:: 0.9.0
+       The function now returns a tuple where the first element is a dataframe
+       and the second element is a dictionary containing metadata. Previous
+       versions of this function had the return values switched.
+    
+    .. versionchanged:: 0.10.0
+       The default endpoint for hourly single-year datasets is now v3.2.2.
+       The previous datasets can still be accessed (for now) by setting
+       the ``url`` parameter to the original API endpoint
+       (``&quot;https://developer.nrel.gov/api/nsrdb/v2/solar/psm3-download.csv&quot;``).
+    
+    Parameters
+    ----------
+    latitude : float or int
+        in decimal degrees, between -90 and 90, north is positive
+    longitude : float or int
+        in decimal degrees, between -180 and 180, east is positive
+    api_key : str
+        NREL Developer Network API key
+    email : str
+        NREL API uses this to automatically communicate messages back
+        to the user only if necessary
+    names : str, default &#39;tmy&#39;
+        PSM3 API parameter specifing year (e.g. ``2020``) or TMY variant
+        to download (e.g. ``&#39;tmy&#39;`` or ``&#39;tgy-2019&#39;``).  The allowed values
+        update periodically, so consult the NSRDB references below for the
+        current set of options.
+    interval : int, {60, 5, 15, 30}
+        interval size in minutes, must be 5, 15, 30 or 60. Must be 60 for
+        typical year requests (i.e., tmy/tgy/tdy).
+    attributes : list of str, optional
+        meteorological fields to fetch. If not specified, defaults to
+        ``pvlib.iotools.psm3.ATTRIBUTES``. See references [2]_, [3]_, and [4]_
+        for lists of available fields. Alternatively, pvlib names may also be
+        used (e.g. &#39;ghi&#39; rather than &#39;GHI&#39;); see :const:`REQUEST_VARIABLE_MAP`.
+        To retrieve all available fields, set ``attributes=[]``.
+    leap_day : boolean, default False
+        include leap day in the results. Only used for single-year requests
+        (i.e., it is ignored for tmy/tgy/tdy requests).
+    full_name : str, default &#39;pvlib python&#39;
+        optional
+    affiliation : str, default &#39;pvlib python&#39;
+        optional
+    map_variables : boolean, optional
+        When true, renames columns of the Dataframe to pvlib variable names
+        where applicable. See variable :const:`VARIABLE_MAP`.
+    url : str, optional
+        API endpoint URL.  If not specified, the endpoint is determined from
+        the ``names`` and ``interval`` parameters.
+    timeout : int, default 30
+        time in seconds to wait for server response before timeout
+    
+    Returns
+    -------
+    data : pandas.DataFrame
+        timeseries data from NREL PSM3
+    metadata : dict
+        metadata from NREL PSM3 about the record, see
+        :func:`pvlib.iotools.parse_psm3` for fields
+    
+    Raises
+    ------
+    requests.HTTPError
+        if the request response status is not ok, then the ``&#39;errors&#39;`` field
+        from the JSON response or any error message in the content will be
+        raised as an exception, for example if the `api_key` was rejected or if
+        the coordinates were not found in the NSRDB
+    
+    Notes
+    -----
+    The required NREL developer key, `api_key`, is available for free by
+    registering at the `NREL Developer Network &lt;https://developer.nrel.gov/&gt;`_.
+    
+    .. warning:: The &quot;DEMO_KEY&quot; `api_key` is severely rate limited and may
+        result in rejected requests.
+    
+    .. warning:: PSM3 is limited to data found in the NSRDB, please consult the
+        references below for locations with available data. Additionally,
+        querying data with &lt; 30-minute resolution uses a different API endpoint
+        with fewer available fields (see [4]_).
+    
+    See Also
+    --------
+    pvlib.iotools.read_psm3, pvlib.iotools.parse_psm3
+    
+    References
+    ----------
+    
+    .. [1] `NREL National Solar Radiation Database (NSRDB)
+       &lt;https://nsrdb.nrel.gov/&gt;`_
+    .. [2] `Physical Solar Model (PSM) v3.2.2
+       &lt;https://developer.nrel.gov/docs/solar/nsrdb/psm3-2-2-download/&gt;`_
+    .. [3] `Physical Solar Model (PSM) v3 TMY
+       &lt;https://developer.nrel.gov/docs/solar/nsrdb/psm3-tmy-download/&gt;`_
+    .. [4] `Physical Solar Model (PSM) v3 - Five Minute Temporal Resolution
+       &lt;https://developer.nrel.gov/docs/solar/nsrdb/psm3-5min-download/&gt;`_
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">pvlib</span><span class="o">.</span><span class="n">iotools</span><span class="o">.</span><span class="n">read_tmy3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function read_tmy3 in module pvlib.iotools.tmy:
+
+read_tmy3(filename, coerce_year=None, map_variables=None, recolumn=None, encoding=None)
+    Read a TMY3 file into a pandas dataframe.
+    
+    Note that values contained in the metadata dictionary are unchanged
+    from the TMY3 file (i.e. units are retained). In the case of any
+    discrepancies between this documentation and the TMY3 User&#39;s Manual
+    [1]_, the TMY3 User&#39;s Manual takes precedence.
+    
+    The TMY3 files were updated in Jan. 2015. This function requires the
+    use of the updated files.
+    
+    Parameters
+    ----------
+    filename : str
+        A relative file path or absolute file path.
+    coerce_year : int, optional
+        If supplied, the year of the index will be set to ``coerce_year``, except
+        for the last index value which will be set to the *next* year so that
+        the index increases monotonically.
+    map_variables : bool, optional
+        When True, renames columns of the DataFrame to pvlib variable names
+        where applicable. See variable :const:`VARIABLE_MAP`.
+    recolumn : bool (deprecated, use map_variables instead)
+        If ``True``, apply standard names to TMY3 columns. Typically this
+        results in stripping the units from the column name.
+        Cannot be used in combination with ``map_variables``.
+    encoding : str, optional
+        Encoding of the file. For files that contain non-UTF8 characters it may
+        be necessary to specify an alternative encoding, e.g., for
+        SolarAnywhere TMY3 files the encoding should be &#39;iso-8859-1&#39;. Users
+        may also consider using the &#39;utf-8-sig&#39; encoding.
+    
+    Returns
+    -------
+    Tuple of the form (data, metadata).
+    
+    data : DataFrame
+        A pandas dataframe with the columns described in the table
+        below. For more detailed descriptions of each component, please
+        consult the TMY3 User&#39;s Manual [1]_, especially tables 1-1
+        through 1-6.
+    
+    metadata : dict
+        The site metadata available in the file.
+    
+    Notes
+    -----
+    The returned structures have the following fields.
+    
+    ===============   ======  ===================
+    key               format  description
+    ===============   ======  ===================
+    altitude          Float   site elevation
+    latitude          Float   site latitudeitude
+    longitude         Float   site longitudeitude
+    Name              String  site name
+    State             String  state
+    TZ                Float   UTC offset
+    USAF              Int     USAF identifier
+    ===============   ======  ===================
+    
+    
+    ========================       ======================================================================================================================================================
+    field                          description
+    ========================       ======================================================================================================================================================
+    **† denotes variables that are mapped when `map_variables` is True**
+    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Index                          A pandas datetime index. NOTE, the index is timezone aware, and times are set to local standard time (daylight savings is not included)
+    ghi_extra†                     Extraterrestrial horizontal radiation recv&#39;d during 60 minutes prior to timestamp, Wh/m^2
+    dni_extra†                     Extraterrestrial normal radiation recv&#39;d during 60 minutes prior to timestamp, Wh/m^2
+    ghi†                           Direct and diffuse horizontal radiation recv&#39;d during 60 minutes prior to timestamp, Wh/m^2
+    GHI source                     See [1]_, Table 1-4
+    GHI uncert (%)                 Uncertainty based on random and bias error estimates see [2]_
+    dni†                           Amount of direct normal radiation (modeled) recv&#39;d during 60 mintues prior to timestamp, Wh/m^2
+    DNI source                     See [1]_, Table 1-4
+    DNI uncert (%)                 Uncertainty based on random and bias error estimates see [2]_
+    dhi†                           Amount of diffuse horizontal radiation recv&#39;d during 60 minutes prior to timestamp, Wh/m^2
+    DHI source                     See [1]_, Table 1-4
+    DHI uncert (%)                 Uncertainty based on random and bias error estimates see [2]_
+    GH illum (lx)                  Avg. total horizontal illuminance recv&#39;d during the 60 minutes prior to timestamp, lx
+    GH illum source                See [1]_, Table 1-4
+    GH illum uncert (%)            Uncertainty based on random and bias error estimates see [2]_
+    DN illum (lx)                  Avg. direct normal illuminance recv&#39;d during the 60 minutes prior to timestamp, lx
+    DN illum source                See [1]_, Table 1-4
+    DN illum uncert (%)            Uncertainty based on random and bias error estimates see [2]_
+    DH illum (lx)                  Avg. horizontal diffuse illuminance recv&#39;d during the 60 minutes prior to timestamp, lx
+    DH illum source                See [1]_, Table 1-4
+    DH illum uncert (%)            Uncertainty based on random and bias error estimates see [2]_
+    Zenith lum (cd/m^2)            Avg. luminance at the sky&#39;s zenith during the 60 minutes prior to timestamp, cd/m^2
+    Zenith lum source              See [1]_, Table 1-4
+    Zenith lum uncert (%)          Uncertainty based on random and bias error estimates see [1]_ section 2.10
+    TotCld (tenths)                Amount of sky dome covered by clouds or obscuring phenonema at time stamp, tenths of sky
+    TotCld source                  See [1]_, Table 1-5
+    TotCld uncert (code)           See [1]_, Table 1-6
+    OpqCld (tenths)                Amount of sky dome covered by clouds or obscuring phenonema that prevent observing the sky at time stamp, tenths of sky
+    OpqCld source                  See [1]_, Table 1-5
+    OpqCld uncert (code)           See [1]_, Table 1-6
+    temp_air†                      Dry bulb temperature at the time indicated, deg C
+    Dry-bulb source                See [1]_, Table 1-5
+    Dry-bulb uncert (code)         See [1]_, Table 1-6
+    temp_dew†                      Dew-point temperature at the time indicated, deg C
+    Dew-point source               See [1]_, Table 1-5
+    Dew-point uncert (code)        See [1]_, Table 1-6
+    relative_humidity†             Relatitudeive humidity at the time indicated, percent
+    RHum source                    See [1]_, Table 1-5
+    RHum uncert (code)             See [1]_, Table 1-6
+    pressure†                      Station pressure at the time indicated, 1 mbar
+    Pressure source                See [1]_, Table 1-5
+    Pressure uncert (code)         See [1]_, Table 1-6
+    wind_direction†                Wind direction at time indicated, degrees from north (360 = north; 0 = undefined,calm)
+    Wdir source                    See [1]_, Table 1-5
+    Wdir uncert (code)             See [1]_, Table 1-6
+    wind_speed†                    Wind speed at the time indicated, meter/second
+    Wspd source                    See [1]_, Table 1-5
+    Wspd uncert (code)             See [1]_, Table 1-6
+    Hvis (m)                       Distance to discernable remote objects at time indicated (7777=unlimited), meter
+    Hvis source                    See [1]_, Table 1-5
+    Hvis uncert (coe)              See [1]_, Table 1-6
+    CeilHgt (m)                    Height of cloud base above local terrain (7777=unlimited), meter
+    CeilHgt source                 See [1]_, Table 1-5
+    CeilHgt uncert (code)          See [1]_, Table 1-6
+    precipitable_water†            Total precipitable water contained in a column of unit cross section from earth to top of atmosphere, cm
+    Pwat source                    See [1]_, Table 1-5
+    Pwat uncert (code)             See [1]_, Table 1-6
+    AOD                            The broadband aerosol optical depth per unit of air mass due to extinction by aerosol component of atmosphere, unitless
+    AOD source                     See [1]_, Table 1-5
+    AOD uncert (code)              See [1]_, Table 1-6
+    albedo†                        The ratio of reflected solar irradiance to global horizontal irradiance, unitless
+    Alb source                     See [1]_, Table 1-5
+    Alb uncert (code)              See [1]_, Table 1-6
+    Lprecip depth (mm)             The amount of liquid precipitation observed at indicated time for the period indicated in the liquid precipitation quantity field, millimeter
+    Lprecip quantity (hr)          The period of accumulatitudeion for the liquid precipitation depth field, hour
+    Lprecip source                 See [1]_, Table 1-5
+    Lprecip uncert (code)          See [1]_, Table 1-6
+    PresWth (METAR code)           Present weather code, see [2]_.
+    PresWth source                 Present weather code source, see [2]_.
+    PresWth uncert (code)          Present weather code uncertainty, see [2]_.
+    ========================       ======================================================================================================================================================
+    
+    .. admonition:: Midnight representation
+    
+       The function is able to handle midnight represented as 24:00 (NREL TMY3
+       format, see [1]_) and as 00:00 (SolarAnywhere TMY3 format, see [3]_).
+    
+    .. warning:: TMY3 irradiance data corresponds to the *previous* hour, so
+        the first index is 1AM, corresponding to the irradiance from midnight
+        to 1AM, and the last index is midnight of the *next* year. For example,
+        if the last index in the TMY3 file was 1988-12-31 24:00:00 this becomes
+        1989-01-01 00:00:00 after calling :func:`~pvlib.iotools.read_tmy3`.
+    
+    .. warning:: When coercing the year, the last index in the dataframe will
+        become midnight of the *next* year. For example, if the last index in
+        the TMY3 was 1988-12-31 24:00:00, and year is coerced to 1990 then this
+        becomes 1991-01-01 00:00:00.
+    
+    References
+    ----------
+    .. [1] Wilcox, S and Marion, W. &quot;Users Manual for TMY3 Data Sets&quot;.
+       NREL/TP-581-43156, Revised May 2008.
+       :doi:`10.2172/928611`
+    .. [2] Wilcox, S. (2007). National Solar Radiation Database 1991 2005
+       Update: Users Manual. 472 pp.; NREL Report No. TP-581-41364.
+       :doi:`10.2172/901864`
+    .. [3] `SolarAnywhere file formats
+       &lt;https://www.solaranywhere.com/support/historical-data/file-formats/&gt;`_
+</pre></div>
+</div>
+</div>
+</div>
+<p>DATA_DIR = pathlib.Path(pvlib.<strong>file</strong>).parent / ‘data’
+df_tmy, meta_dict = pvlib.iotools.read_tmy3(DATA_DIR / ‘723170TYA.CSV’, coerce_year=1990)
+meta_dict  # display the dictionary of metadata</p>
+<p>Let’s display the first 4 lines of the dataframe</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tmy</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df_tmy</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;df_tmy&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>This dataset follows the standard format of handling timeseries data with pandas – one row per timestamp, one column per measurement type.  Because TMY files represent one year of data (no leap years), that means they’ll have 8760 rows.  The number of columns can vary depending on the source of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of rows:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_tmy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of columns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_tmy</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of rows: 8760
+Number of columns: 71
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can access single rows by pointing to its number location (iloc) or by using the index name it has. In this case, that is a dateTime</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tmy</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tmy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1990-01-01 01:00:00-05:00&#39;</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also print all the column names in the dataframe</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tmy</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Date (MM/DD/YYYY)&#39;, &#39;Time (HH:MM)&#39;, &#39;ETR&#39;, &#39;ETRN&#39;, &#39;GHI&#39;, &#39;GHISource&#39;,
+       &#39;GHIUncertainty&#39;, &#39;DNI&#39;, &#39;DNISource&#39;, &#39;DNIUncertainty&#39;, &#39;DHI&#39;,
+       &#39;DHISource&#39;, &#39;DHIUncertainty&#39;, &#39;GHillum&#39;, &#39;GHillumSource&#39;,
+       &#39;GHillumUncertainty&#39;, &#39;DNillum&#39;, &#39;DNillumSource&#39;, &#39;DNillumUncertainty&#39;,
+       &#39;DHillum&#39;, &#39;DHillumSource&#39;, &#39;DHillumUncertainty&#39;, &#39;Zenithlum&#39;,
+       &#39;ZenithlumSource&#39;, &#39;ZenithlumUncertainty&#39;, &#39;TotCld&#39;, &#39;TotCldSource&#39;,
+       &#39;TotCldUncertainty&#39;, &#39;OpqCld&#39;, &#39;OpqCldSource&#39;, &#39;OpqCldUncertainty&#39;,
+       &#39;DryBulb&#39;, &#39;DryBulbSource&#39;, &#39;DryBulbUncertainty&#39;, &#39;DewPoint&#39;,
+       &#39;DewPointSource&#39;, &#39;DewPointUncertainty&#39;, &#39;RHum&#39;, &#39;RHumSource&#39;,
+       &#39;RHumUncertainty&#39;, &#39;Pressure&#39;, &#39;PressureSource&#39;, &#39;PressureUncertainty&#39;,
+       &#39;Wdir&#39;, &#39;WdirSource&#39;, &#39;WdirUncertainty&#39;, &#39;Wspd&#39;, &#39;WspdSource&#39;,
+       &#39;WspdUncertainty&#39;, &#39;Hvis&#39;, &#39;HvisSource&#39;, &#39;HvisUncertainty&#39;, &#39;CeilHgt&#39;,
+       &#39;CeilHgtSource&#39;, &#39;CeilHgtUncertainty&#39;, &#39;Pwat&#39;, &#39;PwatSource&#39;,
+       &#39;PwatUncertainty&#39;, &#39;AOD&#39;, &#39;AODSource&#39;, &#39;AODUncertainty&#39;, &#39;Alb&#39;,
+       &#39;AlbSource&#39;, &#39;AlbUncertainty&#39;, &#39;Lprecipdepth&#39;, &#39;Lprecipquantity&#39;,
+       &#39;LprecipSource&#39;, &#39;LprecipUncertainty&#39;, &#39;PresWth&#39;, &#39;PresWthSource&#39;,
+       &#39;PresWthUncertainty&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are 71 columns, which is quite a lot!  For now, let’s focus just on the ones that are most important for PV modeling – the irradiance, temperature, and wind speed columns, and extract them into a new DataFrame.</p>
+</section>
+<section id="explore-your-weatherfile">
+<h3>4. Explore your weatherfile<a class="headerlink" href="#explore-your-weatherfile" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="downselect-columns">
+<h3>5. Downselect columns<a class="headerlink" href="#downselect-columns" title="Link to this heading">#</a></h3>
+<p>There are a lot more weather data in that file that you can access. To investigate all the column headers, we used <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> above. Always read the <a class="reference external" href="https://www.nrel.gov/docs/fy08osti/43156.pdf">Instruction Manual</a> for the weather files to get more details on how the data is aggregated, units, etc.</p>
+<p>At this point we are interested in <b> GHI, DHI, DNI, DryBulb </b> and <b> Wind Speed </b>. For this NREL TMY3 dataset the units of irradiance are W/m², dry bulb temperature is in °C, and wind speed is m/s.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># GHI, DHI, DNI are irradiance measurements</span>
+<span class="c1"># DryBulb is the &quot;dry-bulb&quot; (ambient) temperature</span>
+<span class="c1"># Wspd is wind speed</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df_tmy</span><span class="p">[[</span><span class="s1">&#39;GHI&#39;</span><span class="p">,</span> <span class="s1">&#39;DHI&#39;</span><span class="p">,</span> <span class="s1">&#39;DNI&#39;</span><span class="p">,</span> <span class="s1">&#39;DryBulb&#39;</span><span class="p">,</span> <span class="s1">&#39;Wspd&#39;</span><span class="p">]]</span>
+<span class="c1"># show the first 15 rows:</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>GHI</th>
+      <th>DHI</th>
+      <th>DNI</th>
+      <th>DryBulb</th>
+      <th>Wspd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990-01-01 01:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>6.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 02:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 03:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>5.7</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 04:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>5.7</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 05:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 06:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>4.1</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 07:00:00-05:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.0</td>
+      <td>4.1</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 08:00:00-05:00</th>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>10.0</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 09:00:00-05:00</th>
+      <td>46</td>
+      <td>46</td>
+      <td>3</td>
+      <td>10.0</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 10:00:00-05:00</th>
+      <td>79</td>
+      <td>78</td>
+      <td>4</td>
+      <td>10.6</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 11:00:00-05:00</th>
+      <td>199</td>
+      <td>198</td>
+      <td>3</td>
+      <td>11.7</td>
+      <td>6.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 12:00:00-05:00</th>
+      <td>261</td>
+      <td>260</td>
+      <td>3</td>
+      <td>11.7</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 13:00:00-05:00</th>
+      <td>155</td>
+      <td>155</td>
+      <td>0</td>
+      <td>11.7</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 14:00:00-05:00</th>
+      <td>144</td>
+      <td>144</td>
+      <td>2</td>
+      <td>11.7</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>1990-01-01 15:00:00-05:00</th>
+      <td>131</td>
+      <td>131</td>
+      <td>1</td>
+      <td>11.1</td>
+      <td>4.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="plotting-time-series-data-with-pandas-and-matplotlib">
+<h2>Plotting time series data with pandas and matplotlib<a class="headerlink" href="#plotting-time-series-data-with-pandas-and-matplotlib" title="Link to this heading">#</a></h2>
+<p>Let’s make some plots to get a better idea of what TMY data gives us.</p>
+<section id="id1">
+<h3>Irradiance<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>First, the three irradiance fields:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_week</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>  <span class="c1"># Plotting 7 days, each one has 24 hours or entries</span>
+<span class="n">first_week</span><span class="p">[[</span><span class="s1">&#39;GHI&#39;</span><span class="p">,</span> <span class="s1">&#39;DHI&#39;</span><span class="p">,</span> <span class="s1">&#39;DNI&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Irradiance [W/m$^2$]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/59ded1199ee33edde12ff9c981c9d4fc98f94239632197a808f80318b63275bb.png" src="_images/59ded1199ee33edde12ff9c981c9d4fc98f94239632197a808f80318b63275bb.png" />
+</div>
+</div>
+<p>Let’s control the parameters a bit more</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">birthday</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1990-11-06&#39;</span><span class="p">:</span><span class="s1">&#39;1990-11-06&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">birthday</span><span class="p">[</span><span class="s1">&#39;DNI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">birthday</span><span class="p">[</span><span class="s1">&#39;DHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">birthday</span><span class="p">[</span><span class="s1">&#39;GHI&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Irradiance [W/m$^2$]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/350d033d144475329de36d8fe15a18ab217db2afe82e36663f24709ff4a856d1.png" src="_images/350d033d144475329de36d8fe15a18ab217db2afe82e36663f24709ff4a856d1.png" />
+</div>
+</div>
+<section id="exercise">
+<h4>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h4>
+<p>How does the Irradiance typically look like in the confernece week?</p>
+<p>Hint: the next cell is ‘Markdown’, you need to switch it to ‘Code’ for it to run</p>
+<p>conferenceweek = df.loc[] # Type the conference week here, using the last code cell as example i.e. ‘1990-11-06’:’1990-11-06’
+plt.plot(conferenceweek[‘DNI’], color=’g’)
+plt.plot(conferenceweek[‘DHI’], color=’b’, marker=’.’)
+plt.plot(conferenceweek[‘GHI’], color=’r’, marker=’s’)
+plt.ylabel(‘Irradiance [W/m<span class="math notranslate nohighlight">\(^2\)</span>]’);</p>
+<p>Later tutorials will show how these three values are used in PV modeling.  For now, let’s just get a qualitative understanding of the differences between them: looking at the above plot, there is a pattern where when DNI is high, DHI is low.  The sun puts out a (roughly) constant amount of energy, which means photons either make it through the atmosphere without scattering and are counted as direct irradiance, or they tend to get scattered and become part of the diffuse irradiance, but not both.  Looking at DNI makes it easy to pick out which hours are cloud and which are sunny – most days in January are rather overcast with low irradiance, but the sun does occasionally break through.</p>
+</section>
+<section id="temperature">
+<h4>Temperature<a class="headerlink" href="#temperature" title="Link to this heading">#</a></h4>
+<p>Next up is temperature:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_week</span><span class="p">[</span><span class="s1">&#39;DryBulb&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ambient Temperature [°C]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0e79f2886997a5c5cecada6be044b22a6e67600566ab7824e0ca472e0d464610.png" src="_images/0e79f2886997a5c5cecada6be044b22a6e67600566ab7824e0ca472e0d464610.png" />
+</div>
+</div>
+</section>
+<section id="wind-speed">
+<h4>Wind speed<a class="headerlink" href="#wind-speed" title="Link to this heading">#</a></h4>
+<p>And finally, wind speed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_week</span><span class="p">[</span><span class="s1">&#39;Wspd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Wind Speed [m/s]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/285a1a5ee9d4b55da3f8c29802524f4ebf5d156db889ac1ebad78da6f6363731.png" src="_images/285a1a5ee9d4b55da3f8c29802524f4ebf5d156db889ac1ebad78da6f6363731.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="aggregating-hourly-data-to-monthly-summaries">
+<h2>3. Aggregating hourly data to monthly summaries<a class="headerlink" href="#aggregating-hourly-data-to-monthly-summaries" title="Link to this heading">#</a></h2>
+<p>Pandas makes it easy to roll-up timeseries data into summary values. We can use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html"><code class="docutils literal notranslate"><span class="pre">DataFrame.resample()</span></code></a> function with <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects"><code class="docutils literal notranslate"><span class="pre">DateOffsets</span></code></a> like <code class="docutils literal notranslate"><span class="pre">'M'</span></code> for months.  For example, we can calculate total monthly GHI as a quick way to visualize the seasonality of solar resource:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># summing hourly irradiance (W/m^2) gives insolation (W h/m^2)</span>
+<span class="n">monthly_ghi</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;GHI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">monthly_ghi</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1990-01-31 00:00:00-05:00     74848
+1990-02-28 00:00:00-05:00     85751
+1990-03-31 00:00:00-05:00    131766
+1990-04-30 00:00:00-05:00    162302
+Freq: M, Name: GHI, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_ghi</span> <span class="o">=</span> <span class="n">monthly_ghi</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># don&#39;t need timezone for monthly data</span>
+<span class="n">monthly_ghi</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Monthly Global Horizontal Irradiance</span><span class="se">\n</span><span class="s1">[W h/m$^2$]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fd4ee440da2acc6cf163849f686a45b52e76da8140121393c4f9907726711a81.png" src="_images/fd4ee440da2acc6cf163849f686a45b52e76da8140121393c4f9907726711a81.png" />
+</div>
+</div>
+<p>We can also take monthly averages instead of monthly sums:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>  <span class="c1"># add a second y-axis</span>
+<span class="n">monthly_average_temp_wind</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;DryBulb&#39;</span><span class="p">,</span> <span class="s1">&#39;Wspd&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">monthly_average_temp_wind</span><span class="p">[</span><span class="s1">&#39;DryBulb&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+<span class="n">monthly_average_temp_wind</span><span class="p">[</span><span class="s1">&#39;Wspd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Ambient Temperature [$\degree$ C]&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Wind Speed [m/s]&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/825978f2495a5537ffb0a6c729ba31d7fe0a643686c27b8ff85247b6ebc917f3.png" src="_images/825978f2495a5537ffb0a6c729ba31d7fe0a643686c27b8ff85247b6ebc917f3.png" />
+</div>
+</div>
+<section id="id2">
+<h3>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Plot the Average DNI per Day</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">daily_average_DNI</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># Add the column name, and resample by day. Month is &#39;M&#39;, day is..</span>
+    <span class="n">daily_average_DNI</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You haven&#39;t finished this exercise correctly, try again!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You haven&#39;t finished this exercise correctly, try again!
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a></p>
+<p>This work is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "PV-Tutorials/2024_PVSC",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tutorial%200%20-%20Overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to Python, Jupyter, and Google Collab</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tutorial%202%20-%20POA%20Irradiance%20and%20Module%20Temperature.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tutorial 2 - POA Irradiance &amp; Module Temperature</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pv-concepts">PV Concepts:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-concepts">Python Concepts:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-data-pv">Weather Data &amp; PV</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-meteorological-year">Typical Meteorological Year</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#irradiance">Irradiance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind">Wind</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#air-temperature">Air temperature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-get-free-solar-irradiance-data">Where to get <em>Free</em> Solar Irradiance Data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-else-can-you-get-historical-irradiance-data">Where else can you get historical irradiance data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrel-api-key">NREL API Key</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-programming-interface-api">Application Programming Interface (API)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-to-coding">Now to Coding:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step-for-google-collab">0. First Step for Google Collab:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-libraries">1. Import Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fetching-tmys-from-the-nsrdb">2. Fetching TMYs from the NSRDB</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-your-weatherfile">4. Explore your weatherfile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downselect-columns">5. Downselect columns</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-time-series-data-with-pandas-and-matplotlib">Plotting time series data with pandas and matplotlib</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Irradiance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature">Temperature</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed">Wind speed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-hourly-data-to-monthly-summaries">3. Aggregating hourly data to monthly summaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exercise</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Silvana Ovaitt, Mark Mikofski
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
